@@ -1,5 +1,6 @@
 package com.example.Registration.controller;
 
+import com.example.Registration.DTO.UserDTO;
 import com.example.Registration.entity.Users;
 import com.example.Registration.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ public class Userscont {
     private UsersService usersService;
 
     @PostMapping("/users")
-    public Users postData(@RequestBody Users users){
+    public Users postData(@RequestBody UserDTO users){
         return usersService.saveUsersData(users);
     }
     @GetMapping("/usersData")
@@ -26,7 +27,7 @@ public class Userscont {
     }
     @PutMapping("/users")
     public Users updateData(@RequestBody Users users){
-        return usersService.saveUsersData(users);
+        return usersService.updateUsersData(users);
     }
     @DeleteMapping("/users/{id}")
     public boolean deleteData(@PathVariable ("id") long id){

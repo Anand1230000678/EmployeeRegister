@@ -1,6 +1,11 @@
 package com.example.Registration.service;
 
+import com.example.Registration.DTO.UserDTO;
+import com.example.Registration.entity.Country;
+import com.example.Registration.entity.State;
 import com.example.Registration.entity.Users;
+import com.example.Registration.repository.CountryRepo;
+import com.example.Registration.repository.StateRepo;
 import com.example.Registration.repository.UsersRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,11 +16,26 @@ import java.util.Optional;
 public class UsersServiceImp implements UsersService{
     @Autowired
     private UsersRepo usersRepo;
+    @Autowired
+    private CountryRepo countryRepo;
+    @Autowired
+    private StateRepo stateRepo;
 
     @Override
-    public Users saveUsersData(Users users) {
-          
-        return usersRepo.save(users);
+    public Users saveUsersData(UserDTO users) {
+        Users user = new Users();
+        user.setName(users.getName());
+        user.setAddress(users.getAddress());
+        Country country=countryRepo.findByName(users.getCountry());
+        user.setCountry(country);
+        State state= stateRepo.findByName(users.getState());
+        user.setState(state);
+        user.setQualification(users.getQualification());
+        user.setReligion(users.getReligion());
+        usersRepo.save(user);
+        return user;
+
+
     }
 
     @Override

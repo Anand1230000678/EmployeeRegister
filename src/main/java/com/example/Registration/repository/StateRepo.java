@@ -7,4 +7,5 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Repository
 public interface StateRepo extends JpaRepository<State,Long> {
+    State findByName(String state);
 }
